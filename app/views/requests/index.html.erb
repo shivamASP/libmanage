@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Requests</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Published in</th>
+      <th>Volume</th>
+      <th>User Id</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <% if request.user_id == current_user.id %>
+        <tr>
+          <td><%= request.title %></td>
+          <td><%= request.author %></td>
+          <td><%= request.published_in %></td>
+          <td><%= request.volume %></td>
+          <td><%= request.user_id %></td>
+          <td><%= link_to 'Show', request %></td>
+          <td><%= link_to 'Edit', edit_request_path(request) %></td>
+          <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Request', new_request_path %>

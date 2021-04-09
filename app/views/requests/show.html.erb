@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @request.title %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @request.author %>
+</p>
+
+<p>
+  <strong>Published in:</strong>
+  <%= @request.published_in %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @request.volume %>
+</p>
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>
