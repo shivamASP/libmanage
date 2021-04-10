@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Books</h1>
+<h1 class="text-center my-4">Available Books</h1>
 
-<table class='table table-hover'>
+<table class='table table-hover align-middle'>
   <thead class='table-info'>
     <tr>
       <th>Title</th>
@@ -20,9 +20,9 @@
         <td><%= book.author %></td>
         <td><%= book.published_in %></td>
         <td><%= book.volume %></td>
-        <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', book, class: 'btn btn-outline-info btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-outline-secondary btn-sm' %></td>
+        <td><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,7 @@
 
 <br>
 
-<%= link_to 'New Book', new_request_path %>
+<%= link_to 'Request New Book', new_request_path, class: 'btn btn-outline-primary' %>
+<% if user_signed_in? %>
+  <%= link_to 'View Requests', requests_path, class: 'btn btn-outline-secondary mx-2' %>
+<% end %>
