@@ -1,6 +1,9 @@
-<h1>Editing Book</h1>
+<h1 class="my-4 text-center">Editing Book</h1>
 
 <%= render 'form', book: @book %>
 
-<%= link_to 'Show', @book %> |
-<%= link_to 'Back', books_path %>
+
+<div class="col-5 mx-auto">
+  <%= link_to 'Show', @book, class: 'me-1 btn btn-info' %>
+  <%= link_to 'Back', books_path, class: 'ms-1 btn btn-secondary' %>
+</div>

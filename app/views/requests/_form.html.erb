@@ -11,24 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field col-5 mx-auto mb-3">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-5 mx-auto mb-3">
     <%= form.label :author %>
-    <%= form.text_field :author %>
+    <%= form.text_field :author, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-5 mx-auto mb-3">
     <%= form.label :published_in %>
-    <%= form.number_field :published_in %>
+    <%= form.number_field :published_in, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-5 mx-auto mb-3">
     <%= form.label :volume %>
-    <%= form.number_field :volume %>
+    <%= form.number_field :volume, class: 'form-control' %>
   </div>
   
   <div class="field">
@@ -36,7 +36,7 @@
     <%= form.hidden_field :user_id, :value => current_user.id %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions col-5 mx-auto mb-3">
+    <%= form.submit 'Request', class: 'btn btn-primary' %>
   </div>
 <% end %>

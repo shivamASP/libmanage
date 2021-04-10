@@ -1,24 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @request.title %>
-</p>
+<div class="card text-center shadow-lg bg-body rounded mt-5">
+  <div class="card-header">
+    <h1 class="card-title my-4 text-center"><%= @request.title %></h1>  
+  </div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item my-2 align-middle fs-5"><strong>Author:</strong> <%= @request.author %>
+      </li>
+      
+      <li class="list-group-item my-2 align-middle fs-5"><strong>Published in:</strong>   <%= @request.published_in %></li>
+      
+      <li class="list-group-item my-2 align-middle fs-5"><strong>Volume:</strong> <%= @request.volume %></li>
 
-<p>
-  <strong>Author:</strong>
-  <%= @request.author %>
-</p>
+      <li class="list-group-item my-2 align-middle fs-5"></li>
+    </ul>
 
-<p>
-  <strong>Published in:</strong>
-  <%= @request.published_in %>
-</p>
+    <h4 class="card-title"><strong>Book Summary</strong></h4>
 
-<p>
-  <strong>Volume:</strong>
-  <%= @request.volume %>
-</p>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+    
+  <div class="card-footer text-muted">
+    <%= link_to 'Edit', edit_request_path(@request), class: 'btn btn-primary me-1 my-2' %>
 
-<%= link_to 'Edit', edit_request_path(@request) %> |
-<%= link_to 'Back', requests_path %>
+    <%= link_to 'Back', requests_path, class: 'btn btn-secondary ms-1 my-2' %>
+  </div>
+</div>
