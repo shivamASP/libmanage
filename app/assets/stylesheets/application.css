@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+.container::before {
+   content: "";
+   background: url('library.jpg') no-repeat center center/cover;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: calc(100vh + 80px);
+   z-index: -2;
+   opacity: 0.2;
+}
+
+.home-content {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+.home-content p {
+   font-size: 1rem;
+}
