@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1 class="text-center my-4">Available Books</h1>
 
 <table class='table table-hover align-middle'>
@@ -21,8 +19,10 @@
         <td><%= book.published_in %></td>
         <td><%= book.volume %></td>
         <td><%= link_to 'Show', book, class: 'btn btn-outline-info btn-sm' %></td>
-        <td><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-outline-secondary btn-sm' %></td>
-        <td><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+        <% if user_signed_in? %>
+          <td><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-outline-secondary btn-sm' %></td>
+          <td><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

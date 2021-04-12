@@ -59,7 +59,7 @@ class RequestsController < ApplicationController
 
   def check_user
     @request = current_user.requests.find_by(id: params[:id])
-    redirect_to requests_path, notice: 'Not Authorized' if @request.nil?
+    redirect_to requests_path, notice: 'You are Not Authorized to perform this action' if @request.nil?
   end
 
   private

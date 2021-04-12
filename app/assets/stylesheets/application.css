@@ -23,7 +23,7 @@
    width: 100%;
    height: calc(100vh + 80px);
    z-index: -2;
-   opacity: 0.2;
+   opacity: 0.1;
 }
 
 .home-content {

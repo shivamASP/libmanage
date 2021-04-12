@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, :set_book, only: %i[ show edit ]
+  before_action :authenticate_user!, :set_book, only: %i[ show edit update destroy ]
+  before_action :check_admin, except: [ :index, :show ]
 
   # GET /books or /books.json
   def index
@@ -58,6 +59,11 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def check_admin
+    # @book = current_user.requests.find_by(id: params[:id])
+    redirect_to books_path, notice: 'You are Not Authorized to perform this action' unless current_user.admin
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.
