@@ -1,5 +1,9 @@
-<p id="notice"><%= notice %></p>
-
+<% if notice %>
+  <div class="notice alert alert-success alert-dismissible fade show mt-3" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 <div class="card text-center shadow-lg bg-body rounded mt-5">
   <div class="card-header">
     <h1 class="card-title my-4 text-center"><%= @request.title %></h1>  

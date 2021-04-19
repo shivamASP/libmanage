@@ -13,13 +13,16 @@
 
   <body>
     <%= render 'home/header' %>
-    <div class="notice alert alert-warning alert-dismissible fade show" role="alert">
-      <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
     <!--<p class="notice alert alert-primary alert-dismissable fade show"><%= notice %></p>-->
     <!--<p class="alert"><%= alert %></p>-->
     <div class='container mx-auto min-vh-100'>
+      <% if notice %>
+        <div class="notice alert alert-warning alert-dismissible fade show mt-2" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   <div id="footer">
