@@ -1,9 +1,3 @@
-<% if notice %>
-  <div class="notice alert alert-success alert-dismissible fade show mt-3" role="alert">
-    <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
 <h1 class="text-center my-4">Your Requested Books</h1>
 
 <table class="table table-hover align-middle">
@@ -21,13 +15,13 @@
     <% @requests.each do |request| %>
       <% if request.user_id == current_user.id %>
         <tr>
-          <td><%= request.title %></td>
-          <td><%= request.author %></td>
-          <td><%= request.published_in %></td>
-          <td><%= request.volume %></td>
-          <td><%= link_to 'Show', request, class: 'btn btn-outline-info btn-sm' %></td>
-          <td><%= link_to 'Edit', edit_request_path(request), class: 'btn btn-outline-secondary btn-sm' %></td>
-          <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+          <td class="fs-5"><%= request.title %></td>
+          <td class="fs-5"><%= request.author %></td>
+          <td class="fs-5"><%= request.published_in %></td>
+          <td class="fs-5"><%= request.volume %></td>
+          <td class="fs-5"><%= link_to 'Show', request, class: 'btn btn-info btn-sm' %></td>
+          <td class="fs-5"><%= link_to 'Edit', edit_request_path(request), class: 'btn btn-secondary btn-sm' %></td>
+          <td class="fs-5"><%= link_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %></td>
         </tr>
       <% end %>
     <% end %>

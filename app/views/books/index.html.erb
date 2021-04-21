@@ -14,14 +14,14 @@
   <tbody>
     <% @books.each do |book| %>
       <tr>
-        <td><%= book.title %></td>
-        <td><%= book.author %></td>
-        <td><%= book.published_in %></td>
-        <td><%= book.volume %></td>
-        <td><%= link_to 'Show', book, class: 'btn btn-outline-info btn-sm' %></td>
+        <td class="fs-5"><%= book.title %></td>
+        <td class="fs-5"><%= book.author %></td>
+        <td class="fs-5"><%= book.published_in %></td>
+        <td class="fs-5"><%= book.volume %></td>
+        <td class="fs-5"><%= link_to 'Show', book, class: 'btn btn-info btn-sm' %></td>
         <% if user_signed_in? %>
-          <td><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-outline-secondary btn-sm' %></td>
-          <td><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+          <td class="fs-5"><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-secondary btn-sm' %></td>
+          <td class="fs-5"><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %></td>
         <% end %>
       </tr>
     <% end %>
@@ -30,7 +30,7 @@
 
 <br>
 
-<%= link_to 'Request New Book', new_request_path, class: 'btn btn-outline-primary' %>
+<%= link_to 'Request New Book', new_request_path, class: 'btn btn-primary' %>
 <% if user_signed_in? %>
-  <%= link_to 'View Requests', requests_path, class: 'btn btn-outline-secondary mx-2' %>
+  <%= link_to 'View Requests', requests_path, class: 'btn btn-secondary mx-2' %>
 <% end %>
