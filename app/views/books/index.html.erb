@@ -30,7 +30,9 @@
 
 <br>
 
-<%= link_to 'Request New Book', new_request_path, class: 'btn btn-primary' %>
-<% if user_signed_in? %>
+<% if @user.admin %>
+  <%= link_to 'Add New Book', new_book_path , class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to 'Request New Book', new_request_path, class: 'btn btn-primary' %>
   <%= link_to 'View Requests', requests_path, class: 'btn btn-secondary mx-2' %>
 <% end %>
