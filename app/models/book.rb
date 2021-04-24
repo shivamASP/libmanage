@@ -16,6 +16,7 @@ class Book < ApplicationRecord
       @issue_data.save
       @book.decrement!(:availability) if actiontype == 'issue'
     end
+    @book
   end
 
   def self.returnlogic(params, uid)
@@ -23,11 +24,11 @@ class Book < ApplicationRecord
     actiontype = params[:format]
     @book = Book.find(book_id)
     @issued = Bookissue.find_by({ user_id: uid, book_id: @book.id })
-
     if @issued.present? && (actiontype == 'return')
       @book.increment!(:availability)
       @issued.destroy
     end
+    @book
   end
   has_many :bookissue, dependent: :destroy
 end

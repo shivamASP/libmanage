@@ -10,6 +10,6 @@ FactoryBot.define do
     title { Faker::String.random(length: 3..12) }
     author { Faker::String.random(length: 3..20) }
     published_in { Faker::Number.within(range: 1800..2020) }
-    volume { Faker::Number.digit }
+    volume { Faker::Number.between(from: 1, to: 10) }
   end
 end
