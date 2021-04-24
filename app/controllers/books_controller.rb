@@ -46,9 +46,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # def request
-  # end
-
   # DELETE /books/1 or /books/1.json
   def destroy
     @book.destroy

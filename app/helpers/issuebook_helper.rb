@@ -1,0 +1,2 @@
+module IssuebookHelper
+end

@@ -1,4 +1,4 @@
-<h1 class="text-center my-4">List of Books</h1>
+<h1 class="text-center my-4">Issued Books</h1>
 
 <table class='table table-hover align-middle'>
   <thead class='table-info'>
@@ -13,7 +13,8 @@
   </thead>
 
   <tbody>
-    <% @books.each do |book| %>
+    <% @issuedbooks.each do |ib| %>
+        <% book = Book.find(ib.book_id) %>
       <tr>
         <td class="fs-5"><%= book.title %></td>
         <td class="fs-5"><%= book.author %></td>
@@ -23,7 +24,7 @@
 
         <td class="fs-5"><%= link_to 'View Book', book, class: 'btn btn-info btn-sm' %></td>
         
-        <% if user_signed_in? && !current_user.admin %>
+        <% if user_signed_in? && !current_user.admin%>
           <% if Bookissue.where(user_id: current_user.id, book_id: book.id).blank? %>
             <td class="fs-5"><%= link_to 'Issue', issuebook_path(book, 'issue'), method: :put,  class: 'btn btn-warning btn-sm' %></td>
           <% else %>
@@ -38,9 +39,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<% if current_user && current_user.admin %>
-  <%= link_to 'Add New Book', new_book_path , class: 'btn btn-primary' %>  
-<% end %>
