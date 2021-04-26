@@ -14,6 +14,7 @@ class Book < ApplicationRecord
     if @issued.blank?
       @issue_data = Bookissue.new({ user_id: uid, book_id: @book.id })
       @issue_data.save
+      LibraryMailer.issue(@issue_data).deliver_later
       @book.decrement!(:availability) if actiontype == 'issue'
     end
     @book
@@ -23,10 +24,11 @@ class Book < ApplicationRecord
     book_id = params[:id]
     actiontype = params[:format]
     @book = Book.find(book_id)
-    @issued = Bookissue.find_by({ user_id: uid, book_id: @book.id })
-    if @issued.present? && (actiontype == 'return')
+    @issue_data = Bookissue.find_by({ user_id: uid, book_id: @book.id })
+    if @issue_data.present? && (actiontype == 'return')
       @book.increment!(:availability)
-      @issued.destroy
+      LibraryMailer.return(@issue_data).deliver_later
+      @issue_data.destroy
     end
     @book
   end
