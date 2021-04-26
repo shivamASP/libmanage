@@ -9,13 +9,14 @@ class Book < ApplicationRecord
     book_id = params[:id]
     actiontype = params[:format]
     @book = Book.find(book_id)
-    @issued = Bookissue.find_by({ user_id: uid, book_id: @book.id })
-
-    if @issued.blank?
-      @issue_data = Bookissue.new({ user_id: uid, book_id: @book.id })
-      @issue_data.save
-      LibraryMailer.issue(@issue_data).deliver_later
-      @book.decrement!(:availability) if actiontype == 'issue'
+    unless @book.availability.zero?
+      @issued = Bookissue.find_by({ user_id: uid, book_id: @book.id })
+      if @issued.blank?
+        @issue_data = Bookissue.new({ user_id: uid, book_id: @book.id })
+        @issue_data.save
+        LibraryMailer.issue(@issue_data).deliver_later
+        @book.decrement!(:availability) if actiontype == 'issue'
+      end
     end
     @book
   end

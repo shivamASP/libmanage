@@ -1,11 +1,15 @@
 class IssuebookController < ApplicationController
   def issue
     if user_signed_in?
-      Book.issuelogic(params, current_user.id)
+      if Book.find(params[:id]).availability.zero?
+        redirect_to books_url, notice: 'Availability is 0, cannot be issued'
+      else
+        Book.issuelogic(params, current_user.id)
+        redirect_to controller: 'books', action: 'index'
+      end
     else
       redirect_to new_user_session_path
     end
-  redirect_to controller: 'books', action: 'index'
   end
 
   def return
