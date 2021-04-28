@@ -30,6 +30,7 @@ class BooksController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
+      # @book.title
     end
   end
 

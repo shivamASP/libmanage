@@ -9,7 +9,7 @@ class LibraryMailer < ApplicationMailer
     @user = User.find(bookissue.user_id)
 
     mail to: @user.email,
-         subject: 'Congrats! Book successfully issued'
+         subject: "Congrats! Book #{@book.title} successfully issued"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -22,6 +22,6 @@ class LibraryMailer < ApplicationMailer
     @user = User.find(bookissue.user_id)
 
     mail to: @user.email,
-         subject: 'Congrats! Book successfully returned'
+         subject: "Congrats! Book #{@book.title} successfully returned"
   end
 end

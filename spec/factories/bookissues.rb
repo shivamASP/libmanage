@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :bookissue do
-    user { nil }
-    book { nil }
+    association :user, factory: :random_user
+    association :book, factory: :random_book
   end
 end
