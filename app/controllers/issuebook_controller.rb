@@ -5,7 +5,7 @@ class IssuebookController < ApplicationController
         redirect_to books_url, notice: 'Availability is 0, cannot be issued'
       else
         Book.issuelogic(params, current_user.id)
-        redirect_to controller: 'books', action: 'index'
+        redirect_to books_url, notice: 'Book has been issued'
       end
     else
       redirect_to new_user_session_path
@@ -18,7 +18,7 @@ class IssuebookController < ApplicationController
     else
       redirect_to new_user_session_path
     end
-    redirect_to controller: 'books', action: 'index'
+    redirect_to books_url, notice: 'Book returned'
   end
 
   def viewissuedbooks
