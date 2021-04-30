@@ -12,4 +12,11 @@ FactoryBot.define do
     published_in { Faker::Number.within(range: 1800..2020) }
     volume { Faker::Number.between(from: 1, to: 10) }
   end
+
+  factory :sequenced_book, class: Book do |n|
+    sequence(:title) { |n| "book#{n}"}
+    sequence(:author) { |n| "author#{n}"}
+    published_in { Faker::Number.within(range: 1800..2020) }
+    volume { Faker::Number.between(from: 1, to: 10) }
+  end
 end
