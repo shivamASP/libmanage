@@ -1,17 +1,8 @@
-# module ControllerMacros
-#   def login_as_admin
-#     user = User.new(email: 'admin@example.com', password: 'secret')
-#     user.admin = true
-#     user.save!
-#     # session[:user_id] = user.id
-#   end
-# end
-
 module ControllerMacros
   def login_admin
     before(:each) do
       @request.env['devise.mapping'] = Devise.mappings[:admin]
-      admin = FactoryBot.create(:admin)
+      admin = FactoryBot.create(:random_user, :admin)
       sign_in admin, scope: :user # sign_in resource, scope: :user
     end
   end
