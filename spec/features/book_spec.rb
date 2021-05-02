@@ -23,17 +23,22 @@ RSpec.feature 'book CRUD', type: :feature do
       end
     end
 
-    # scenario 'view book' do
-    #   # click_button 'Log in'
-    #   expect(page).to have_current_path('/books')
-    #   p book
-    #   expect(find('h1')).to have_content('List of Books')
-    #   # expect(find('td')).to have_content(book.title.to_s)
-
-    #   # click_link 'View Book'
-    #   # expect(page).to have_current_path(book_path)
-    #   # expect(find('h4')).to be_eql('book1')
-    # end
+    scenario 'view book' do
+      find_link('Sign out').click
+      expect(find('.notice')).to have_text 'Signed out successfull'
+      visit new_user_registration_path
+      expect(page).to have_current_path '/users/sign_up'
+      within('form') do
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        fill_in 'Password confirmation', with: user.password
+        click_button 'Sign up'
+      end
+      expect(page).to have_current_path '/books'
+      find_link('View Book', match: :first).click
+      expect(page).to have_current_path("/books/#{book.id}")
+      expect(find('h1')).to have_content('book1')
+    end
 
     scenario 'added new book?' do
       expect(find('.notice')).to have_content 'Book was successfully created'
