@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe '/books with authentication', type: :controller do
   describe BooksController do
+    login_user
+    it 'should redirect to books path instead of new book path' do
+      get :new
+      expect(response).to redirect_to(books_path)
+    end
+  end
+
+  describe BooksController do
     login_admin
     let(:book) { create(:book) }
 
