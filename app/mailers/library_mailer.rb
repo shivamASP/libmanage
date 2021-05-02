@@ -24,14 +24,4 @@ class LibraryMailer < ApplicationMailer
     mail to: @user.email,
          subject: "Congrats! Book #{@book.title} successfully returned"
   end
-
-  def reminder(bookissues)
-    bookissues.each do |bookissue|
-      @book = Book.find(bookissue.book_id)
-      @user = User.find(bookissue.user_id)
-
-      mail to: @user.email,
-           subject: "Reminder Email to return #{@book.title}"
-    end
-  end
 end
