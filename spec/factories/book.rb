@@ -4,6 +4,12 @@ FactoryBot.define do
     author { 'valid author' }
     published_in { 2020 }
     volume { 1 }
+    transient do
+      unvailable { true }
+    end
+    after :build do |book, options|
+      book.availability = 0 if options.unvailable
+    end
   end
 
   factory :random_book, class: Book do
