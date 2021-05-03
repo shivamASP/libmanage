@@ -5,8 +5,8 @@ class LibraryMailer < ApplicationMailer
   #   en.library_mailer.issue.subject
   #
   def issue(bookissue)
-    @book = Book.find(bookissue.book_id)
-    @user = User.find(bookissue.user_id)
+    @book = bookissue.book
+    @user = bookissue.user
 
     mail to: @user.email,
          subject: "Congrats! Book #{@book.title} successfully issued"
@@ -18,8 +18,8 @@ class LibraryMailer < ApplicationMailer
   #   en.library_mailer.return.subject
   #
   def return(bookissue)
-    @book = Book.find(bookissue.book_id)
-    @user = User.find(bookissue.user_id)
+    @book = bookissue.book
+    @user = bookissue.user
 
     mail to: @user.email,
          subject: "Congrats! Book #{@book.title} successfully returned"

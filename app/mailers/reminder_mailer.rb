@@ -6,9 +6,8 @@ class ReminderMailer < ApplicationMailer
   #
   def reminder(bookissue)
     @bookissue = bookissue
-    @book = Book.find(bookissue.book_id)
-    @user = User.find(bookissue.user_id)
-
+    @book = bookissue.book
+    @user = bookissue.user
     mail to: @user.email,
          subject: "Reminder to return #{@book.title}"
   end
