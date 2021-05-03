@@ -7,16 +7,16 @@ class IssuebookController < ApplicationController
         Book.issuelogic(params, current_user.id)
         redirect_to books_url, notice: 'Book has been issued'
       end
-    else
-      redirect_to new_user_session_path
+      # else
+      #   redirect_to new_user_session_path
     end
   end
 
   def return
     if user_signed_in?
       Book.returnlogic(params, current_user.id)
-    else
-      redirect_to new_user_session_path
+      # else
+      #   redirect_to new_user_session_path
     end
     redirect_to books_url, notice: 'Book returned'
   end
