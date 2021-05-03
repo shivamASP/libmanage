@@ -85,4 +85,8 @@ Rails.application.configure do
     authentication: 'plain',
     enable_starttls_auto: true
   }
+
+  # However, since this is a setting that allows access from all hosts, it is strictly prohibited in a 
+  # production environment.Reference site: Blocked host on Rails 6 
+  config.hosts.clear 
 end
