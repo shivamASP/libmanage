@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'book CRUD', type: :feature do
+RSpec.feature 'book features', type: :feature do
   context '/books/index page' do
     let(:book) { create(:sequenced_book) }
     let(:admin_user) { create(:random_user, :admin) }
@@ -76,6 +76,28 @@ RSpec.feature 'book CRUD', type: :feature do
         click_on 'Return', exact: true, match: :first
       end
       expect(find('.notice')).to have_text 'Book returned'
+    end
+  end
+
+  context 'unavailable book' do
+    let(:book) { create(:book, availability: 0) }
+    let(:user) { create(:random_user)}
+    scenario 'try to issue unavailable book' do
+      visit new_user_session_path
+      expect(page).to have_current_path '/users/sign_in'
+      p book
+      within('form') do
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_button 'Log in'
+      end
+      expect(page).to have_current_path '/books'
+      expect(page).to have_text book.title.to_s
+      within('table') do
+        click_on 'Issue', exact: true
+      end
+      expect(page).to have_current_path '/books'
+      expect(find('.notice')).to have_text 'Availability is 0, cannot be issued'
     end
   end
 end
