@@ -5,16 +5,16 @@ FactoryBot.define do
     published_in { 2020 }
     volume { 1 }
     transient do
-      unvailable { true }
+      availability { 0 }
     end
-    after :build do |book, options|
-      book.availability = 0 if options.unvailable
+    after :create, :build do |book, evaluator|
+      book.availability = evaluator.availability
     end
   end
 
   factory :random_book, class: Book do
-    title { Faker::String.random(length: 3..12) }
-    author { Faker::String.random(length: 3..20) }
+    title { Faker::Alphanumeric.alpha(number: 10) }
+    author { Faker::Alphanumeric.alpha(number: 10) }
     published_in { Faker::Number.within(range: 1800..2020) }
     volume { Faker::Number.between(from: 1, to: 10) }
   end
