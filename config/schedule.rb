@@ -25,10 +25,9 @@ env :GEM_PATH, ENV['GEM_PATH']
 set :environment, 'development'
 set :path, '/home/mb/ror-simple-project'
 set :output, 'log/cron_log.log'
-
-p send_return_reminder
+set :bundle_command, "/usr/local/bin/bundle exec"
 
 every 2.minute do
-  # runner 'send_return_reminder:remind'
-  rails rake 'send_return_reminder:remind'
+  runner 'send_return_reminder:remind'
+  rake 'send_return_reminder:remind'
 end
