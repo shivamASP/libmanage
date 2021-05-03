@@ -12,6 +12,7 @@ RSpec.describe '/books with authentication', type: :controller do
   describe BooksController do
     login_admin
     let(:book) { create(:book) }
+    let(:another_book) { create(:random_book, title: 'to be updated') }
 
     it 'responds successfully to new book path' do
       get :new
@@ -23,6 +24,12 @@ RSpec.describe '/books with authentication', type: :controller do
       expect(response).to have_http_status(200)
     end
 
+    it 'fails to create a new book' do
+      post :create, params: { book: { title: '', author: 'a',
+                                      published_in: 2000, volume: 0 } }
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
     it 'successfully creates a new book' do
       expect do
         post :create, params: { book: { title: 'booktitle', author: 'bookauthor',
@@ -32,7 +39,15 @@ RSpec.describe '/books with authentication', type: :controller do
       expect(response).to have_http_status(302)
     end
 
-    let(:another_book) { create(:random_book, title: 'to be updated') }
+    it 'fails to update the book' do
+      expect(another_book.title).to eql('to be updated')
+      book_id = another_book.id
+      volume = another_book.volume
+      patch :update, params: { book: { volume: 0 }, id: book_id }
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(Book.find(book_id).volume).to eql(volume)
+    end
+
     it 'updates the book successfully' do
       expect(another_book.title).to eql('to be updated')
       book_id = another_book.id
@@ -44,7 +59,7 @@ RSpec.describe '/books with authentication', type: :controller do
     end
 
     it 'responds to DELETE' do
-      delete :destroy, params: { id: book.id}
+      delete :destroy, params: { id: book.id }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(books_path)
     end
