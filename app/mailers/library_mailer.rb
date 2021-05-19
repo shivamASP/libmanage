@@ -17,9 +17,9 @@ class LibraryMailer < ApplicationMailer
   #
   #   en.library_mailer.return.subject
   #
-  def return(bookissue)
-    @book = bookissue.book
-    @user = bookissue.user
+  def return(book, user)
+    @book = book
+    @user = user
 
     mail to: @user.email,
          subject: "Congrats! Book #{@book.title} successfully returned"

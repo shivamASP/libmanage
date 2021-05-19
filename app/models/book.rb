@@ -14,7 +14,9 @@ class Book < ApplicationRecord
       if @issued.blank?
         @issue_data = Bookissue.new({ user_id: uid, book_id: @book.id })
         @issue_data.save
-        LibraryMailer.issue(@issue_data).deliver_later
+        # LibraryMailer.issue(@issue_data).deliver_later
+        IssueMailerJob.perform(@issue_data)
+        # IssueMailerJob.delay(queue: 'issue', run_at: 1.minute.from_now).perform(@issue_data)
         @book.decrement!(:availability) if actiontype == 'issue'
       end
     end
@@ -28,7 +30,8 @@ class Book < ApplicationRecord
     @issue_data = Bookissue.find_by({ user_id: uid, book_id: @book.id })
     if @issue_data.present? && (actiontype == 'return')
       @book.increment!(:availability)
-      LibraryMailer.return(@issue_data).deliver_later
+      @user = User.find(uid)
+      ReturnMailerJob.perform(@book, @user)
       @issue_data.destroy
     end
     @book
