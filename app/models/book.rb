@@ -1,9 +1,10 @@
 class Book < ApplicationRecord
-  validates :title, length: { minimum: 2 }, presence: true
-  validates :author, length: { minimum: 2, maximum: 20 }, presence: true
+  validates :title, length: { minimum: 2, maximum: 50 }, presence: true
+  validates :author, length: { minimum: 2, maximum: 50 }, presence: true
   validates :published_in,
             numericality: { less_than_or_equal_to: 2020, greater_than_or_equal_to: 1800, allow_nil: true }
   validates :volume, numericality: { greater_than_or_equal_to: 1, allow_nil: true }
+  validate :validate_book
 
   def self.issuelogic(params, uid)
     book_id = params[:id]
@@ -14,9 +15,7 @@ class Book < ApplicationRecord
       if @issued.blank?
         @issue_data = Bookissue.new({ user_id: uid, book_id: @book.id })
         @issue_data.save
-        # LibraryMailer.issue(@issue_data).deliver_later
-        IssueMailerJob.perform(@issue_data)
-        # IssueMailerJob.delay(queue: 'issue', run_at: 1.minute.from_now).perform(@issue_data)
+        LibraryMailer.issue(@issue_data).deliver_later
         @book.decrement!(:availability) if actiontype == 'issue'
       end
     end
@@ -37,4 +36,16 @@ class Book < ApplicationRecord
     @book
   end
   has_many :bookissue, dependent: :destroy
+
+  private
+
+  def validate_book
+    search_keyword = title.to_s.tr(' ', '+')
+    url = "https://www.googleapis.com/books/v1/volumes?q=intitle:#{search_keyword}&key=AIzaSyDTwKE17DDbFVAOQl2OMyq-TlUFXDv56nY"
+    uri = URI(url)
+    api_response = Net::HTTP.get(uri)
+    return if api_response.include? title.to_s
+
+    errors.add(:base, 'It\'s not a valid book')
+  end
 end
