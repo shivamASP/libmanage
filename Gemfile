@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+gem 'activejob'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'delayed_job_active_record'
 gem 'devise', '~> 4.7', '>= 4.7.3'
@@ -27,6 +28,8 @@ end
 group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'webmock'
+  gem 'whenever-test'
 end
 
 
@@ -35,6 +38,8 @@ group :development, :test do
   gem 'capybara', '>= 3.26'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec-mocks'
   gem 'rspec-rails'
+  gem 'rspec-rake'
   gem 'simplecov', require: false
 end
