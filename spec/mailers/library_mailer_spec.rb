@@ -23,12 +23,11 @@ end
 
 RSpec.describe LibraryMailer, type: :mailer do
   describe 'return' do
-    let(:bookissue) { create(:bookissue) }
-    let(:mail) { LibraryMailer.return(bookissue) }
+    let(:book) { create(:random_book, :skip_validate) }
+    let(:user) { create(:random_user) }
+    let(:mail) { LibraryMailer.return(book, user) }
 
     it 'renders the headers' do
-      book = Book.find(bookissue.book_id)
-      user = User.find(bookissue.user_id)
       expect(mail.subject).to eq("Congrats! Book #{book.title} successfully returned")
       expect(mail.to).to eq([user.email.to_s])
       expect(mail.from).to eq(['from@example.com'])

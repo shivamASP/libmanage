@@ -13,10 +13,13 @@ FactoryBot.define do
   end
 
   factory :random_book, class: Book do
-    title { Faker::Alphanumeric.alpha(number: 10) }
+    title { Faker::Book.title }
     author { Faker::Alphanumeric.alpha(number: 10) }
     published_in { Faker::Number.within(range: 1800..2020) }
     volume { Faker::Number.between(from: 1, to: 10) }
+    trait :skip_validate do
+      to_create { |instance| instance.save(validate: false) }
+    end
   end
 
   factory :sequenced_book, class: Book do |n|

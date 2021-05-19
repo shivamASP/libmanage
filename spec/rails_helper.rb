@@ -11,6 +11,20 @@ require 'devise'
 # require 'support/controller_macros'
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 require 'capybara/rspec'
+require 'rspec/rake'
+
+def stub_api_call(title, validate)
+  url = "https://www.googleapis.com/books/v1/volumes?q=intitle:#{title.to_s.tr(' ',
+                                                                          '+')}&key=AIzaSyDTwKE17DDbFVAOQl2OMyq-TlUFXDv56nY"
+  stub_request(:get, url)
+    .with(
+      headers: {
+        'Accept' => '*/*',
+        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'User-Agent' => 'Ruby'
+      }
+    ).to_return(status: (validate ? 200 : 422), body: (validate ? title : 'invalid title'), headers: {})
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -41,6 +55,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.extend ControllerMacros, type: :controller
+  config.include ActiveJob::TestHelper
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

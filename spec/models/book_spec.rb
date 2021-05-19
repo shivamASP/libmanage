@@ -3,12 +3,18 @@ require 'rails_helper'
 RSpec.describe Book, type: :model do
   describe 'validation tests using static' do
     let(:book) { build(:book) }
-    it 'validates title presence' do
+
+    before do
+      stub_api_call(book.title, true)
+    end
+
+    it 'succeeds for title present' do
       expect(book.save).to eq(true)
     end
 
-    it 'checks for title absence' do
+    it 'fails for title absent' do
       book.title = nil
+      stub_api_call(book.title, true)
       expect(book.save).to eq(false)
     end
 
@@ -17,21 +23,25 @@ RSpec.describe Book, type: :model do
       expect(book).not_to be_valid
       book.author = 'auth'
       expect(book).to be_valid
-      book.author = 'asdlseuifsdfjhsdfjasoifuhasfjk'
-      expect(book).not_to be_valid
     end
   end
 
   describe 'validates using Faker' do
     let(:book) { build(:random_book) }
 
+    before do
+      stub_api_call(book.title, true)
+    end
+
     it 'validates title length' do
       book.title = 't'
+      stub_api_call(book.title, true)
       expect(book.save).to eq(false)
     end
 
     it 'validates title absence' do
       book.title = nil
+      stub_api_call(book.title, true)
       expect(book.save).to eq(false)
     end
 
@@ -56,7 +66,7 @@ RSpec.describe Book, type: :model do
   end
 
   describe 'issue and return logic' do
-    let(:book) { create(:random_book) }
+    let(:book) { create(:random_book, :skip_validate) }
     let(:user) { create(:random_user) }
     it 'checks the availability count of book after issue' do
       issuedbook = Book.issuelogic({ id: book.id, format: 'issue' }, user.id)
