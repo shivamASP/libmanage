@@ -57,8 +57,7 @@ class BooksController < ApplicationController
   end
 
   def check_admin
-    # @book = current_user.requests.find_by(id: params[:id])
-    redirect_to books_path, notice: 'You are Not Authorized to perform this action' unless current_user.admin
+    redirect_to books_path, notice: 'You are Not Authorized to perform this action' unless current_user&.admin
   end
 
   private
