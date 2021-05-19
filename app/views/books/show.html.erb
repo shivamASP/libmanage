@@ -5,8 +5,8 @@
   <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item my-2 align-middle fs-5"><strong>Author:</strong> <%= @book.author %></li>
-      <li class="list-group-item my-2 align-middle fs-5"><strong>Published in:</strong> <%= @book.published_in %></li>
-      <li class="list-group-item my-2 align-middle fs-5"><strong>Volume:</strong> <%= @book.volume %></li>
+      <li class="list-group-item my-2 align-middle fs-5"><strong>Published in:</strong> <%= @book.published_in || 'NA' %></li>
+      <li class="list-group-item my-2 align-middle fs-5"><strong>Volume:</strong> <%= @book.volume || 'NA' %></li>
       <li class="list-group-item my-2 align-middle fs-5"></li>
     </ul>
     <h4 class="card-title"><strong>Book Summary</strong></h4>
